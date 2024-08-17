@@ -6,11 +6,14 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   static const appTitle = 'App Ceutec';
-  
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: appTitle,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: MyHomePage(title: appTitle),
     );
   }
@@ -29,18 +32,16 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static const List<Widget> _widgetOptions = <Widget>[
     NewsList(),
     Text(
       'El cambio de dolares',
       style: optionStyle,
     ),
+    TaskList(),
     Text(
-      'lista de tareas',
-      style: optionStyle,
-    ),
-    Text(
-      'podcast',
+      'Podcast',
       style: optionStyle,
     ),
   ];
@@ -107,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              title: const Text('podcast'),
+              title: const Text('Podcast'),
               selected: _selectedIndex == 3,
               onTap: () {
                 _onItemTapped(3);
@@ -131,19 +132,19 @@ class NewsList extends StatelessWidget {
       children: <Widget>[
         NewsItem(
           title: 'Inicio de periodo ',
-          description: 'Este siguiente periodo Inicia El 11 de octubre .',
+          description: 'Este siguiente periodo inicia el 11 de octubre.',
           imageUrl: 'https://i0.wp.com/www.academica.school/news/wp-content/uploads/2020/05/960x0.jpg?fit=800%2C500&ssl=1',
         ),
         SizedBox(height: 19),
         NewsItem(
-          title: 'Adiccion de Carrera',
-          description: 'Licenciatura en Terapia Fisica Y ocupacional',
+          title: 'Adicción de Carrera',
+          description: 'Licenciatura en Terapia Física y Ocupacional',
           imageUrl: 'https://media.istockphoto.com/id/1501185786/es/foto/hombre-haciendo-ejercicios-de-fisioterapia-usando-una-banda-el%C3%A1stica.jpg?s=612x612&w=0&k=20&c=JR5M8TsQKSHf7EeC5rXQezjcd6GeWPIkl7id1C3Bhuc=',
         ),
         SizedBox(height: 16),
         NewsItem(
           title: 'Cantidad de alumnos ',
-          description: 'Cada Año se matriculan mas alumnos por lo tanto ya somos mas de 30,000 alumnos.',
+          description: 'Cada año se matriculan más alumnos, por lo tanto ya somos más de 30,000 alumnos.',
           imageUrl: 'https://st2.depositphotos.com/3662505/6878/i/950/depositphotos_68789187-stock-photo-students.jpg',
         ),
       ],
@@ -213,6 +214,84 @@ class NewsItem extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TaskList extends StatelessWidget {
+  const TaskList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.all(16.0),
+      children: <Widget>[
+        TaskItem(
+          title: 'Completar reporte',
+          icon: Icons.description,
+        ),
+        SizedBox(height: 16),
+        TaskItem(
+          title: 'Reunión con el equipo',
+          icon: Icons.group,
+        ),
+        SizedBox(height: 16),
+        TaskItem(
+          title: 'Enviar correos',
+          icon: Icons.email,
+        ),
+        SizedBox(height: 16),
+        TaskItem(
+          title: 'Revisar presupuesto',
+          icon: Icons.account_balance_wallet,
+        ),
+      ],
+    );
+  }
+}
+
+class TaskItem extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const TaskItem({
+    required this.title,
+    required this.icon,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 5.0,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            size: 40,
+            color: Colors.blue,
+          ),
+          SizedBox(width: 16.0),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],
